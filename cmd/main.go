@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"strconv"
 	"ysd/go-fiber-dz/config"
 	"ysd/go-fiber-dz/internal/pages"
 
@@ -11,8 +12,7 @@ import (
 
 func main() {
 	config.Init()
-	dbConf := config.NewDatabaseConfig()
-	log.Println(dbConf)
+	appConfig := config.GetAppConfig()
 
 	cfg := fiber.Config{
 		ErrorHandler: func(c fiber.Ctx, err error) error {
@@ -29,7 +29,7 @@ func main() {
 
 	pages.NewHandler(app)
 
-	if err := app.Listen(":3000"); err != nil {
+	if err := app.Listen(":" + strconv.Itoa(appConfig.Port)); err != nil {
 		log.Fatal(err.Error())
 	}
 }

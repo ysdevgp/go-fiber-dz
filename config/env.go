@@ -46,11 +46,21 @@ func getBool(key string, defaultValue bool) bool {
 }
 
 type DatabaseConfig struct {
-	url string
+	Url string
 }
 
-func NewDatabaseConfig() *DatabaseConfig {
+func GetDatabaseConfig() *DatabaseConfig {
 	return &DatabaseConfig{
-		url: getString("DATABASE_URL", ""),
+		Url: getString("DATABASE_URL", ""),
+	}
+}
+
+type AppConfig struct {
+	Port int
+}
+
+func GetAppConfig() *AppConfig {
+	return &AppConfig{
+		Port: getInt("PORT", 3000),
 	}
 }
